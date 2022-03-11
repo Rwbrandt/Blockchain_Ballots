@@ -1,9 +1,6 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
-
-import "github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v3.4/contracts/token/ERC721/ERC721.sol";
-
-contract Ballot is ERC721 {
+contract Ballot {
     //STRUCTS
     struct Proposal {
         string name;   // short name (up to 32 bytes)
@@ -15,7 +12,6 @@ contract Ballot is ERC721 {
         bool voted;
         bool weight;
     }
-    address public owner;
 
     // ARRAYS
     /*Voter[] public voters; // A dyamic array called 'voters,' containing 'Voter' structs*/
@@ -29,7 +25,7 @@ contract Ballot is ERC721 {
     
     //METHODS
     // Constructor that launches upon deployment, and requires an array of strings
-    constructor(string[] memory proposalNames, address[] memory voterList) private ERC721("Voted","I Voted") {  // argument must be an array of strings, which is temorarily stored in 'memory' under the variable 'proposalNames'
+    constructor(string[] memory proposalNames, address[] memory voterList) public {  // argument must be an array of strings, which is temorarily stored in 'memory' under the variable 'proposalNames'
         for (uint i = 0; i < proposalNames.length; i++) { // for loop: i = 0, loop through proposalNames array until 'i' is not less than the number of proposals in 'proposalNames' array
             proposals.push(Proposal({ // for each loop take the following info and push it to a new 'Proposal' struct inside of the 'proposals' array
                 name: proposalNames[i],  // from the entry at index 'i' in the 'proposalNames' array, update 'name' in the associated 'Proposal' struct
@@ -43,9 +39,6 @@ contract Ballot is ERC721 {
             voted: false,
             weight: true
             }));
-
-        owner = msg.sender;
-        tokenCounter = 0;
         }
     }
 
@@ -83,20 +76,11 @@ contract Ballot is ERC721 {
     // Functin to cast your vote
     function vote(uint proposalIndex) public refundGas { // takes argument of index number in the 'proposals' array you want to vote for
         //VoterAddress memory sender = votersMap[msg.sender]; // initialze variable 'sender' and use the 'votersMap' mapping to find that voter based on their addres 'msg.sender'
-        require(address(this).balance != 0, "Voting has not yet begun");
         require(votersMap[msg.sender].weight, "You ain't registered son!"); // require that the sender is 'registered' as 'true'
         require(!votersMap[msg.sender].voted, "You cannot vote because you already voted."); // require that the sender's 'voted' status is 'false'
         votersMap[msg.sender].voted = true; // update 'voted' status of sender to 'true' since they have case their vote
         proposals[proposalIndex].voteCount += 1; // add 1 to the 'voteCount' of the 'Proposal' struct in the 'proposals' array at the 'proposalIndex'
         voterInfo.push(VoterAddress({vWallet: msg.sender, voted: true, weight: true}));
-        
-        uint256 newNFTTokenId = tokenCounter;
-        _safeMint(msg.sender, newNFTTokenId);
-        _setTokenURI(newNFTTokenId, "ipfs://QmRdLAYtoxfkYQLS3a81ZYU5TggZgi2cwLTyzWTareeuMx");
-        address seller = ownerOf(newNFTTokenId);
-        _safeTransfer(seller, msg.sender, newNFTTokenId);
-        tokenCounter = tokenCounter + 1;
-
     }
     // Function to view the proposal that is winning.
     function winner() public view returns (uint _winningProposalIndex, string memory _winnerName) {
@@ -108,10 +92,5 @@ contract Ballot is ERC721 {
                 _winnerName = proposals[p].name; // returns the name of the winning proposal
             }
         }
-    }
-
-    function EndVote() public {
-        require(msg.sender == owner, "You are not the owner");
-        selfdestruct(msg.sender); 
     }
 }
