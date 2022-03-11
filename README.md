@@ -5,6 +5,14 @@
 
 -----
 
+## Tech Utilized
+ - Solidity, Remix IDE
+ - Streamlit
+ - Kovan
+ - Infura
+
+-----
+
  ## Usage and Installation
 
  ### Usage
