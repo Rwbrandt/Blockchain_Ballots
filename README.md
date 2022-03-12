@@ -21,9 +21,10 @@
  #### Streamlit
  - Optional: Create a new Web 3 environment (recommended)
  - Pip Intall: [Web 3](https://pypi.org/project/web3/) and [Streamlit]( https://docs.streamlit.io/library/get-started/installation)
- - Clone the out 'Blockchain_Ballots' repository 
+ - Clone the 'Blockchain_Ballots' repository 
  - In your terminal, navigate to the folder containing 'app.py' and enter the command 'streamlit run app.py'
- - Streamlit will launch locally in your default we browser
+ - Streamlit will launch locally in your default browser
+ - From there you can interact with the app
 
 
 
@@ -35,7 +36,7 @@
  #### Solidity
  - 
  #### Streamlit
- - 
+ - Once you're launched your Streamlit app, its very easy to interact with.  You can use it the same way your would a normal website/app.
  #### Geopandas
  - Using the Geopandas mapping database is very simple and requires a few steps:
     1. Pulling in the up to date dataframe for the zip codes associated with the votes collected.
