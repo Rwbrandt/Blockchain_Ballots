@@ -19,7 +19,14 @@
  #### Solidity
  - 
  #### Streamlit
- - 
+ - Optional: Create a new Web 3 environment (recommended)
+ - Pip Intall: [Web 3](https://pypi.org/project/web3/) and [Streamlit]( https://docs.streamlit.io/library/get-started/installation)
+ - Clone the out 'Blockchain_Ballots' repository 
+ - In your terminal, navigate to the folder containing 'app.py' and enter the command 'streamlit run app.py'
+ - Streamlit will launch locally in your default we browser
+
+
+
  #### Geopandas
  - For installation of geopandas, a new environment will likely need to be created witin your operating system.  Once the new environment has been set, be sure to run a pip install of geopandas to have the most up to date version.
  - Once installed, the dataframes will be able to get converted to the geometric location using the jupyter notebook included in the repository and subsequently overlaid with a map of the united states for general location verification
