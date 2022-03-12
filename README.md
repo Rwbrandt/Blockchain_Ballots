@@ -20,8 +20,14 @@
  ## Usage and Installation
 
  ### Installation
- #### Solidity
- - 
+ #### Remix IDE (Solidity)
+- In your web browser, navigate to [Remix IDE](https://remix.ethereum.org/)
+- Create a new document, and code your contract
+- Upon completion, in the left menu navigate to the 'Solidity Compiler' and compile your contract
+- Then in the left menu navigate to "Deploy & Run Transactions" and deploy your contract
+- Scroll down to interact with your contract
+ 
+
  #### Streamlit
  - Optional: Create a new Web 3 environment (recommended)
  - Pip Intall: [Web 3](https://pypi.org/project/web3/) and [Streamlit]( https://docs.streamlit.io/library/get-started/installation)
@@ -37,8 +43,9 @@
  - Once installed, the dataframes will be able to get converted to the geometric location using the jupyter notebook included in the repository and subsequently overlaid with a map of the united states for general location verification
 
  ### Usage
- #### Solidity
- - 
+ #### Remix IDE (Solidity)
+ - Once your contract has been deployed, navigate to "Deploy & Run Transactions".  Scroll to the bottom where you can interact with the various fuctions in the contract.
+
  #### Streamlit
  - Once you're launched your Streamlit app, its very easy to interact with.  You can use it the same way your would a normal website/app.
  #### Geopandas
