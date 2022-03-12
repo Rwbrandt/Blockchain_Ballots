@@ -8,8 +8,7 @@
 ## Tech Utilized
  - Solidity, Remix IDE
  - Streamlit
- - Kovan
- - Infura
+ - Geopandas
  - MetaMask
 
 -----
