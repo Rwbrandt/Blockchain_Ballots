@@ -6,10 +6,14 @@
 -----
 
 ## Tech Utilized
- - Solidity, Remix IDE
+ - Solidity
+ - Remix IDE
  - Streamlit
  - Geopandas
  - MetaMask
+ - Ganache
+ - VS Code
+
 
 -----
 
