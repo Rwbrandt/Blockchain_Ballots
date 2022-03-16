@@ -10,8 +10,9 @@ import plotly.express as px
 #load_dotenv()
 
 st.set_page_config(
-     page_title="Ex-stream-ly Cool App",
-     layout="wide"
+     page_title="Voting dApp",
+     page_icon="🗳️"
+     #layout="wide"
  )
 
 
@@ -19,14 +20,12 @@ st.set_page_config(
 
 w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))  # Ganache local provider
 accounts = w3.eth.accounts # list of addresses from ganache
-proposals_list = ["Proposal 1", "Proposal 2", "Proposal 3"] # List of proposals to display in a dropdown menu
+proposals_list = ["Proposal 1 - Harm Reduction Program", "Proposal 2 - After School Program", "Proposal 3 - Clean Up"] # List of proposals to display in a dropdown menu
 location_list = ["Austin, TX" , "Seattle, WA" , "Denver, CO" , "Philadelphia, PA"] # List of locations to 
 registered_voters = [
     "0x31975A1c2353E6f61bfa921387c17330b814Fce9",
     "0x90A987B89217Ff95D3D52f2e51bc6cBE5534be0F",
-    "address 1",
-    "address 2",
-    "address 3"]
+]
 
 ##########################  CONTRACT FUNCTION  ##############################
 
@@ -54,33 +53,22 @@ contract = load_contract()
 ##########################  CHARTING FUNCTION  ##############################
 
 def results_graphs():
-#with st.expander("View Current Results"):
-    df = pd.DataFrame()  # Initialize empty dataframe
-    df["Proposals"] = proposals_list # create proposals column and populate with proposals list
-    for index in range(len(location_list)): #for loop to create location columns with 0 votes
-        df[location_list[index]] = index
-    df["Votes"] = df.sum(axis=1)
-    df = df.set_index('Proposals')
+    
+    contract_list = []
+    for i in range(len(proposals_list)):
+        call = contract.functions.proposals(i).call()
+        contract_list.append(call)
+    totals_frame = pd.DataFrame(contract_list, columns = ['Proposal','Votes'])
 
     # Bar Chart - Total Vote by Proposal
-    proposal_votes_fig = px.bar(df, x=proposals_list, y='Votes', title="Votes by Location")
+    fig = px.bar(x=totals_frame.Proposal, y=totals_frame.Votes, color=totals_frame.Proposal) # title="Votes per Proposal"
+    fig.update_yaxes(title="Votes")
+    fig.update_xaxes(title="Proposals")
 
-    # Bar Chart - Votes by Location
-    location_votes_fig = px.bar(df, x=location_list, y='Votes', title="Votes by Location")
-
-    st.markdown("### Current Results")
-
-    c1, c2 = st.columns(2)
-    with c1:
-        st.plotly_chart(proposal_votes_fig, use_container_width=True)
-    with c2:
-        st.plotly_chart(location_votes_fig, use_container_width=True)
-
-
-    # Write Dataframe
-    st.write(df)
+    st.markdown("## Votes per Proposal")
+    st.plotly_chart(fig, use_container_width=True)
+    #st.write(totals_frame)
     st.write("______________________")
-
 
 
 ##########################  SUBMIT VOTE FUNCTION  ##############################
@@ -135,18 +123,21 @@ with st.sidebar.expander("How to use this Dapp ", expanded=False):
     st.write("STEP 2: In the 'Verify your Address' section to the right, enter the verified wallet address you are permitted to vote with.  Click 'Verify Address' ")
     st.write("STEP 3: Once your address is verified the 'Vote' section will appear.  Choose the proposal you want to vote for and the Co-Op you are assocated with.  Then click the 'Vote' button. ")
 
+with st.sidebar.expander("About 'DAO or DIE' ", expanded=False):
+    st.write("For its work in the community, DAO or Die has received a grant of $25,000 to spend on a community service project of its choosing.  The DAO members vote to decide how to spend the funds.  See the proposals below.")
+
 with st.sidebar.expander("About the Proposals", expanded=False):
     st.markdown("## About the Proposals")
-    proposal_info = st.selectbox("In light of its outstanding work in the community, DAO or Die has received a grant of $25,000.  Co-op members vote to decide how to spend the funds.  See the proposals below.", options = proposals_list)
-    if proposal_info == "Proposal 1":
-        st.write("Info about proposal number ONE here.  Info about proposal number one here.  Info about proposal number one here.")
-    elif proposal_info == "Proposal 2":
-        st.write("Info about proposal number TWO here.  Info about proposal number one here.  Info about proposal number one here.")
+    proposal_info = st.selectbox("", options = proposals_list)
+    if proposal_info == proposals_list[0]:
+        st.write("Harm Reduction Project:  Fund overdose prevention programs, syringe access implimentation programs, and expenses for training and capacity facilities.")
+    elif proposal_info == proposals_list[1]:
+        st.write("After School Program for Low Income Schools: Fund staff for after school activites related to arts, music, and sports.")
+    elif proposal_info == proposals_list[2]:
+        st.write("Clean Up: Cover expenses to organize and execute a nationwide clean-up initiative across the US")
     else:
-        st.write("Info about proposal number THREE here.  Info about proposal number one here.  Info about proposal number one here.")
+        st.empty()
 
-with st.sidebar.expander("About 'DAO or DIE' ", expanded=False):
-    st.write("Our DAO is trying to decide how to allocate funds in our Treasury.  Please vote on how you think is the most appropiate way to allocate these funds.")
 
 ##########################  DATAFRAME  ##############################
 
@@ -156,5 +147,3 @@ with st.sidebar.expander("About 'DAO or DIE' ", expanded=False):
 # prop 1 - against expenses
 # propt 2 - purchase asset (space)
 # prop 3 - etc.
-
-
