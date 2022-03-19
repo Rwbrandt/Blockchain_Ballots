@@ -5,7 +5,6 @@
 
 <br>
 <br>
-<br>
 
 
 # Tech Utilized
@@ -19,7 +18,6 @@
  - Firstore
 
 
-<br>
 <br>
 <br>
 
@@ -58,7 +56,6 @@
 
 <Br>
 <Br>
-<Br>
 
  # Usage
  #### Remix IDE (Solidity)
@@ -76,7 +73,7 @@
 - Read database with attribute .stream()
 - Write with attribute . set()
 
-<br>
+
 <br>
 <br>
 
