@@ -50,8 +50,10 @@
  ### Firestore - Google Cloud Database
 - Live cloud database service to read / write votes in voting app
 - Create an account:  https://console.firebase.google.com/
--Instal Libaray: pip install google-cloud-firestore
-- Establish connection with client:  db = firestore.Client.from_service_account_json("firestore_key.json") 
+- Install Library: 
+   - pip install google-cloud-firestore
+- Establish connection with client:  
+   - db = firestore.Client.from_service_account_json("firestore_key.json") 
 
 
 <Br>
@@ -71,7 +73,7 @@
     3. Passing the latitudes and longitudes within the dataframe through the geometric builder to create the exact point within the map.
     4. Overlay the points with the map and show the general locations of where the votes came from to verify regional eligibility of each vote.
 ### Firestore - Google Cloud Database
-- Read databe base with attribute .stream()
+- Read database with attribute .stream()
 - Write with attribute . set()
 
 <br>
