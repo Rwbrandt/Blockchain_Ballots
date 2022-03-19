@@ -1,11 +1,14 @@
 # Blockchain Ballots
 ![Anonymous Voting](Images/Anonymous_Voting.JPEG)
-## Synapsis
+# Synapsis
  Imagine a world in which something so dramatic, say a pandemic, happens and makes it unsafe for people to leave their homes for regular activities?  In important years there is still a need for democratic actions to continue moving forward as a nation, in other words, VOTING!  For everything from union collective bargaining, to local elections, even to presidential elections, voting is a key instrument in improving the world around us.  What has been created and laid out here provides a way for anonymous voting stored within a blockchain that provides security, speed, and confirmation of completion within moments of casting the vote!  
 
------
+<br>
+<br>
+<br>
 
-## Tech Utilized
+
+# Tech Utilized
  - Solidity
  - Remix IDE
  - Streamlit
@@ -13,13 +16,15 @@
  - MetaMask
  - Ganache
  - VS Code
+ - Firstore
 
 
------
+<br>
+<br>
+<br>
 
- ## Usage And Installation
 
- ### Installation
+ # Installation
  #### Remix IDE (Solidity)
 - In your web browser, navigate to [Remix IDE](https://remix.ethereum.org/)
 - Create a new document, and code your contract
@@ -41,8 +46,19 @@
  #### Geopandas
  - For installation of geopandas, a new environment will likely need to be created witin your operating system.  Once the new environment has been set, be sure to run a pip install of geopandas to have the most up to date version.
  - Once installed, the dataframes will be able to get converted to the geometric location using the jupyter notebook included in the repository and subsequently overlaid with a map of the united states for general location verification
+ 
+ ### Firestore - Google Cloud Database
+- Live cloud database service to read / write votes in voting app
+- Create an account:  https://console.firebase.google.com/
+-Instal Libaray: pip install google-cloud-firestore
+- Establish connection with client:  db = firestore.Client.from_service_account_json("firestore_key.json") 
 
- ### Usage
+
+<Br>
+<Br>
+<Br>
+
+ # Usage
  #### Remix IDE (Solidity)
  - Once your contract has been deployed, navigate to "Deploy & Run Transactions".  Scroll to the bottom where you can interact with the various fuctions in the contract.
 
@@ -54,10 +70,15 @@
     2. Confirmation of the latitude and longitude of those zip codes for reference on the map.
     3. Passing the latitudes and longitudes within the dataframe through the geometric builder to create the exact point within the map.
     4. Overlay the points with the map and show the general locations of where the votes came from to verify regional eligibility of each vote.
+### Firestore - Google Cloud Database
+- Read databe base with attribute .stream()
+- Write with attribute . set()
 
- -----
+<br>
+<br>
+<br>
 
- ## Procedural Evidence
+ # Procedural Evidence
  ### Solidity
 
  The contract being deployed on Solidity Remix
